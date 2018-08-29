@@ -15,7 +15,7 @@ import { catchError, tap } from 'rxjs/operators';
 })
 export class UserService {
 
-  private usersUrl = 'http://localhost:8080/users';
+  private usersUrl = 'http://localhost:8080/booking/users';
   
   constructor(private http: HttpClient, 
     private messageService: MessageService) { }
@@ -51,7 +51,7 @@ export class UserService {
   deleteUser (user) : Observable<any> {
       const id = typeof user === 'number' ? user : user.id;
       const url = `${this.usersUrl}/${id}`;
-      return this.http.delete<User>(this.usersUrl,httpOptions).pipe(
+      return this.http.delete<User>(url,httpOptions).pipe(
               tap(_ => this.log(`deleted user id=${user.id}`)),
               catchError(this.handleError<any>('deleteUser'))      
       );
