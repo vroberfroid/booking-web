@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './user';
-import { users } from './mock-users';
 import { Observable, of } from 'rxjs';
 import { MessageService } from './message.service';
 import { catchError, tap } from 'rxjs/operators';
@@ -19,6 +18,7 @@ export class UserService {
   
   constructor(private http: HttpClient, 
     private messageService: MessageService) { }
+
   getusers(): Observable<User[]> {    
     return this.http.get<User[]>(this.usersUrl).pipe(
       catchError(this.handleError('getHeroes', []))

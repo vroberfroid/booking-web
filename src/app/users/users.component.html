@@ -8,12 +8,44 @@
   </li>
 </ul>
 
+<p-table
+  [columns]="primeNgColumns"
+  [value]="users"
+  [paginator]="pageable"
+  [rows]="rowsPerPage"
+  [resizableColumns]="true"
+  [totalRecords]="users ? users.length : 0"
+  (onLazyLoad)="loadData($event)"
+ >
+  <ng-template pTemplate="caption">
+    List of Users
+  </ng-template>
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngFor="let col of primeNgColumns">
+        {{col.header}}
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-user >
+    <tr>
+      <td *ngFor="let col of primeNgColumns">
+        {{user[col.field]}}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<div>----</div>
 <div>
   <label>User name:
     <input #userName />
   </label>
+  <label>First name:
+    <input #firstName />
+  </label>
   <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(userName.value); userName.value=''">
+  <button (click)="add(userName.value, firstName.value); userName.value=''; firstName.value=''">
     add
   </button>  
 </div>
